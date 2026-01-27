@@ -1,27 +1,56 @@
 import { useState } from "react";
-import { Mail, Phone, Linkedin, Github, Send, MapPin, ExternalLink } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { Mail, Phone, Linkedin, Github, Send, MapPin, ExternalLink, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
+const EMAILJS_SERVICE_ID = "service_d0xmtcr";
+const EMAILJS_TEMPLATE_ID = "template_73zix4l";
+const EMAILJS_PUBLIC_KEY = "QvgME_v9hbvlzubJB";
+
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real implementation, this would send the form data to a server
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for your message. I'll get back to you soon!",
-    });
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for your message. I'll get back to you soon!",
+      });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -207,10 +236,20 @@ const Contact = () => {
                   type="submit" 
                   className="w-full hero-button group h-14 text-lg relative overflow-hidden"
                   size="lg"
+                  disabled={isSubmitting}
                 >
-                  <span className="relative z-10">
-                    Send Message
-                    <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <span className="relative z-10 flex items-center justify-center">
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Button>
