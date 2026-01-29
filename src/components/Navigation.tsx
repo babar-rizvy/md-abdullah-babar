@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -7,11 +8,12 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'services', label: 'Services' },
-    { id: 'portfolio', label: 'Portfolio' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'home', label: 'Home', isRoute: false },
+    { id: 'about', label: 'About', isRoute: false },
+    { id: 'services', label: 'Services', isRoute: false },
+    { id: 'portfolio', label: 'Portfolio', isRoute: false },
+    { id: 'cv', label: 'CV', isRoute: true, path: '/cv' },
+    { id: 'contact', label: 'Contact', isRoute: false },
   ];
 
   useEffect(() => {
@@ -54,20 +56,30 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`font-medium transition-all duration-300 hover:text-primary relative ${
-                  activeSection === item.id 
-                    ? 'text-primary' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {item.label}
-                {activeSection === item.id && (
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-hero rounded-full"></div>
-                )}
-              </button>
+              item.isRoute ? (
+                <Link
+                  key={item.id}
+                  to={item.path!}
+                  className="font-medium transition-all duration-300 hover:text-primary text-muted-foreground hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`font-medium transition-all duration-300 hover:text-primary relative ${
+                    activeSection === item.id 
+                      ? 'text-primary' 
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {item.label}
+                  {activeSection === item.id && (
+                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-hero rounded-full"></div>
+                  )}
+                </button>
+              )
             ))}
           </div>
 
@@ -94,17 +106,28 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden py-4 space-y-2 border-t border-border/50">
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeSection === item.id 
-                    ? 'text-primary bg-primary/10' 
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
-                }`}
-              >
-                {item.label}
-              </button>
+              item.isRoute ? (
+                <Link
+                  key={item.id}
+                  to={item.path!}
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full text-left px-4 py-2 rounded-lg font-medium transition-all duration-300 text-muted-foreground hover:text-foreground hover:bg-secondary"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    activeSection === item.id 
+                      ? 'text-primary bg-primary/10' 
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              )
             ))}
             <div className="pt-4">
               <Button 

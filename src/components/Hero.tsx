@@ -75,7 +75,17 @@ const Hero = () => {
                   size="lg"
                 >
                   Contact Me
-                  <Download className="ml-2 h-5 w-5" />
+                </Button>
+                <Button 
+                  asChild
+                  variant="outline"
+                  className="glass-card border-accent/30 text-foreground hover:bg-accent/10 hover:border-accent/50 transition-all duration-300"
+                  size="lg"
+                >
+                  <a href="/cv.pdf" download="Md_Abdullah_Babar_CV.pdf">
+                    <Download className="mr-2 h-5 w-5" />
+                    Download CV
+                  </a>
                 </Button>
               </div>
               
