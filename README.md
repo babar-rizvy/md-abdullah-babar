@@ -2,7 +2,7 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/596acbf8-3543-44e4-be32-59249a44fb62
+**URL**: https://mdabdullahbabar.netlify.app/
 
 ## How can I edit this code?
 
