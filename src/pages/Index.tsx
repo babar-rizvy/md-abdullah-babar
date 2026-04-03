@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <div className="bg-red-600 text-white text-center py-2 font-bold text-sm">Preview Updated</div>
       <Navigation />
       <main>
         <Hero />
