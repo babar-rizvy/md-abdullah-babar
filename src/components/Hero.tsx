@@ -51,9 +51,7 @@ const Hero = () => {
             </div>
 
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              I am a tech enthusiast with hands-on experience in social media marketing, web development, and artificial intelligence. 
-              I am passionate about building creative digital solutions and exploring how technology can make life easier. 
-              Alongside my technical journey, I actively engage in research and academic projects to broaden my knowledge and share innovative ideas.
+              I am a passionate tech enthusiast with hands-on experience in social media marketing, web development, and a growing focus on artificial intelligence. Currently, I am developing my skills in Python, machine learning, and data-driven problem solving, with the goal of becoming an AI/ML Engineer. I enjoy building creative and practical digital solutions that make everyday life easier. Alongside my technical journey, I actively engage in research and academic projects, continuously exploring new ideas and innovations in the field of AI.
             </p>
 
             {/* Modern CTA section */}
