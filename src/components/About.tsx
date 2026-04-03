@@ -5,7 +5,7 @@ const About = () => {
   const skills = [
     {
       category: "Programming Languages",
-      items: ["C", "C++", "C#", "HTML", "CSS"],
+      items: ["C", "C++", "C#", "Python", "HTML", "CSS"],
       icon: Code,
       color: "from-primary to-primary-dark"
     },
