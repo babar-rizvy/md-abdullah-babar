@@ -45,7 +45,7 @@ const Hero = () => {
               </h1>
               <div className="glass-card p-6 rounded-2xl border border-primary/20">
                 <p className="text-xl lg:text-2xl text-foreground font-semibold leading-relaxed">
-                  Tech Enthusiast | Web Developer | Social Media & Database Specialist
+                  AI/ML Enthusiast | Future AI Engineer
                 </p>
               </div>
             </div>
